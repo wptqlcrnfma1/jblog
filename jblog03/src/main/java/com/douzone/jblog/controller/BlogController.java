@@ -30,7 +30,7 @@ public class BlogController {
 
 	@Auth
 	@RequestMapping({ "", "/{pathNo1}", "/{pathNo1}/{pathNo2}" })
-	public String main(@PathVariable String id, @ModelAttribute BlogVo blogVo, Model model,
+	public String main(@PathVariable String id, @ModelAttribute BlogVo blogVo, Model model, 
 			@PathVariable Optional<Integer> pathNo1, @PathVariable Optional<Integer> pathNo2, ModelMap modelMap) {
 
 		blogVo = blogService.getContents(id);
@@ -38,15 +38,16 @@ public class BlogController {
 		
 		int categoryNo = 0;
 		int postNo = 0;
-
+		
 		if (pathNo2.isPresent()) {
 			postNo = pathNo2.get();
 
 			categoryNo = pathNo1.get();
-
+			
 		} else if (pathNo1.isPresent()) {
 			categoryNo = pathNo1.get();
 		}
+		
 		
 		modelMap.putAll(blogService.getAll(id, categoryNo, postNo));
 		

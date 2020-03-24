@@ -25,20 +25,38 @@
 		]]>
 	</select>	
 	
-	<select id="selectLatelyTitle" resultType="postVo">
+	<select id="selectLatelyTitle" parameterType="map" resultType="postVo">
+		<choose>
+			<when test="categoryNo == 0">
 		<![CDATA[
-				select a.no, a.category_no as categoryNo, a.title, a.reg_date as regDate 
-				from post a, category b 
-				where a.category_no = b.no
-				and b.id = #{id}
-				and b.no = (select max(no) from category)
-			 	order by a.category_no desc, a.no desc;
+			select *
+			from post a, category b
+			where a.category_no = b.no
+			and b.id = #{id}
+            and b.no = (select max(c.no) from category c)
+			order by a.no desc;
 		]]>
+		</when>
+			<otherwise>
+			<![CDATA[
+					select *
+					from post a, category b
+					where a.category_no = b.no
+					and b.id = #{id}
+					and b.no = #{categoryNo}
+					order by a.no desc
+			]]>
+			</otherwise>
+		</choose>
 	</select>
 	
 	<select id="selectLatelyTitleContents" resultType="postVo">
 		<![CDATA[
-				select no, title, contents from post where category_no = (select max(no) from category) order by category_no desc, no desc limit 1;
+				select * from post a, category b 
+				where a.category_no=b.no 
+				and a.category_no = (select max(no) from category) 
+				and b.id = #{id}
+				order by a.category_no desc, a.no desc limit 1;
 		]]>
 	</select>
 	

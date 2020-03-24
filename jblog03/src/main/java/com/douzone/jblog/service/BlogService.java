@@ -132,12 +132,12 @@ public class BlogService {
 		List<PostVo> postList = new ArrayList<PostVo>();
 		PostVo postVo;
 
-		if (categoryNo == 0) { // 첫 메인
-			postList = postRepository.selectLatelyTitleList(id);
+		if (categoryNo == 0 && postNo ==0) { // 첫 메인
+			postList = postRepository.selectLatelyTitleList(id, categoryNo);
 			postVo = postRepository.selectLatelyTitleContents(id);
 			
 		}else if(categoryNo != 0 && postNo == 0) { 
-			postList = postRepository.selectLatelyTitleList(id);
+			postList = postRepository.selectLatelyTitleList(id, categoryNo);
 			postVo = postRepository.selectLatelyTitleContents(id);
 		}
 		else {

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="post">
+	<insert id="insert" parameterType="postVo">
+		<![CDATA[
+			insert
+ 			into post
+  			values(null, #{title}, #{contents}, now(), #{categoryNo})
+		]]>	
+	</insert>
+	
+	<select id="selectTitle" resultType="postVo">
+		<![CDATA[
+		select no, category_no as categoryNo, title, reg_date as regDate
+			from post 
+			where category_no = #{no} order by no desc
+		]]>
+	</select>
+	
+	<select id="selectTitleContents" resultType="postVo">
+		<![CDATA[
+		select no, title, contents from post 
+			where no = #{no}
+		]]>
+	</select>	
+	
+	<select id="selectLatelyTitle" resultType="postVo">
+		<![CDATA[
+				select a.no, a.category_no as categoryNo, a.title, a.reg_date as regDate 
+				from post a, category b 
+				where a.category_no = b.no
+				and b.id = #{id}
+				and b.no = (select max(no) from category)
+			 	order by a.category_no desc, a.no desc;
+		]]>
+	</select>
+	
+	<select id="selectLatelyTitleContents" resultType="postVo">
+		<![CDATA[
+				select no, title, contents from post where category_no = (select max(no) from category) order by category_no desc, no desc limit 1;
+		]]>
+	</select>
+	
+</mapper>

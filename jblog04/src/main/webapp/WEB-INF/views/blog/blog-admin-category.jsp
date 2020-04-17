@@ -38,7 +38,7 @@
 						<td>
 						<c:choose>
 						<c:when test="${vo.postCnt eq 0 }">
-						<a href = "${pageContext.request.contextPath }/${authUser.id}/delete/${vo.no}"><img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></a>
+						<a href = "${pageContext.request.contextPath }/${authUser.id}/delete/${vo.no}"><img src="${pageContext.request.contextPath}/assets/image/delete.jpg"></a>
 						</c:when>
 						</c:choose>
 						</td>

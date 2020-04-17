@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="category">
+	<insert id="insert" parameterType="categoryVo">
+
+		<![CDATA[
+			insert
+ 			into category
+  			values(null, '기타', 'default category description', now(), #{id})
+		]]>
+
+	</insert>	
+	
+		<insert id="categoryInsert" parameterType="categoryVo">
+		<![CDATA[
+			insert
+ 			into category
+  			values(null, #{name}, #{description}, now() , #{id})
+		]]>
+	</insert>
+	
+	<select id="selectAll" resultType="categoryVo">
+		<![CDATA[
+				select a.no, a.name, count(b.no) as postCnt ,a.description, a.reg_date 
+					from category a 
+					left join post b 
+					on a.no = b.category_no 
+					where a.id = #{id}
+					group by a.no 
+					order by a.no desc;
+		]]>
+	</select>
+	
+	<select id="selectTitle" resultType="categoryVo">
+		<![CDATA[
+		select no, name
+			from category
+			where id = #{id}
+			order by no desc
+		]]>
+	</select>
+	
+	<delete id="delete" parameterType="categoryVo">
+		<![CDATA[
+			delete from category where no = #{no}
+		]]>
+	</delete>
+	
+</mapper>

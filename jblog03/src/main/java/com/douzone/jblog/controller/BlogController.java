@@ -22,7 +22,7 @@ import com.douzone.jblog.vo.PostVo;
 import com.douzone.security.Auth;
 
 @Controller
-@RequestMapping("/{id:(?!assets).*}")
+@RequestMapping("blog/{id:(?!assets).*}")
 public class BlogController {
 
 	@Autowired
@@ -93,7 +93,7 @@ public class BlogController {
 
 		blogService.categoryInsert(categoryVo);
 
-		return "redirect:/" + id + "/category";
+		return "redirect:/blog/" + id + "/category";
 	}
 
 	@Auth

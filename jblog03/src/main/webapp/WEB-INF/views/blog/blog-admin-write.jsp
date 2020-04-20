@@ -21,8 +21,8 @@
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 				<ul class="admin-menu">
-					<li><a href="${pageContext.request.contextPath}/${authUser.id}/admin">기본설정</a></li>
-					<li><a href="${pageContext.request.contextPath}/${authUser.id}/category">카테고리</a></li>
+					<li><a href="${pageContext.request.contextPath}/${authUser.id}/blog/admin">기본설정</a></li>
+					<li><a href="${pageContext.request.contextPath}/${authUser.id}/blog/category">카테고리</a></li>
 					<li class="selected">글작성</li>
 				</ul>
 				<form action="${pageContext.request.contextPath}/${authUser.id }/write" method="post" enctype="multipart/form-data">

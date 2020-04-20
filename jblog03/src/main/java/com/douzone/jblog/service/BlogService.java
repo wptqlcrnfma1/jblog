@@ -152,4 +152,8 @@ public class BlogService {
 		return map;
 
 	}
+
+	public List<CategoryVo> getMessageList(String id) {
+		return categoryRepository.selectList(id);
+	}
 }

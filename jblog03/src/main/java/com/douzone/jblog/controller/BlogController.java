@@ -73,21 +73,24 @@ public class BlogController {
 		blogService.updateContents(blogVo);
 
 		model.addAttribute("blogVo", blogVo);
-		return "redirect:/" + id;
+		return "redirect:/blog/" + id;
 	}
 
 	@Auth
 	@RequestMapping("/category")
 	public String category(@PathVariable String id, Model model) {
+		
 		List<CategoryVo> list = blogService.categoryGetContents(id);
-
+		
+		model.addAttribute("id", id);
+		
 		model.addAttribute("list", list);
 
 		return "blog/blog-admin-category";
 	}
 
 	@Auth
-	@RequestMapping(value = "/category", method = RequestMethod.POST)
+	@RequestMapping(value = "{id}/category", method = RequestMethod.POST)
 	public String category(@PathVariable String id, @Param("name") String name,
 			@Param("description") String description, CategoryVo categoryVo) {
 
@@ -111,7 +114,7 @@ public class BlogController {
 
 		blogService.postInsert(postVo);
 
-		return "redirect:/" + id + "/category";
+		return "redirect:/blog/" + id + "/category";
 	}
 
 	@Auth
@@ -119,6 +122,6 @@ public class BlogController {
 	public String delete(@PathVariable String id, @PathVariable("no") int no) {
 		blogService.categoryDelete(no);
 
-		return "redirect:/" + id + "/category";
+		return "redirect:/blog" + id + "/category";
 	}
 }

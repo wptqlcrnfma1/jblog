@@ -12,29 +12,28 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
 
 <script>
+
+///////////////////////////////////////////////////////////
+var listItemTemplate = new EJS({
+	url: "${pageContext.request.contextPath }/assets/js/ejs/list-item-template.ejs"
+});
 var listTemplate = new EJS({
 	url: "${pageContext.request.contextPath }/assets/js/ejs/list-template.ejs"
 });
-
-$(function(){
-	fetchList();
-});
+//////////////////////////////////////////////////////////////
 
 var fetchList = function(response){
-	var id = ${authUser.id};
-
+	var id = ${id};
 	$.ajax({
 		url: '${pageContext.request.contextPath }/api/blog/list/'+id,
 		type: 'get',
 		dataType: 'json',
 		success: function(response){
+			
 			//rendering
 			var html = listTemplate.render(response);
 			$("#menu-title").after(html);
-			//
-
 			//response.data.contextPath = '${pageContext.request.contextPath }';
-	
 		},
 		
 		error: function(XHR, status, e){
@@ -43,6 +42,105 @@ var fetchList = function(response){
 	});
 }
 
+	
+	
+// 	$.ajax({
+// 		url: '${pageContext.request.contextPath }/api/blog/delete/' + no,
+// 		type: 'delete',
+// 		dataType: 'json',
+// 		data: '',
+// 		success: function(response){
+// 			console.log(response);
+// 			console.log(no);
+// 		},
+// 		error: function(xhr, status, e){
+// 			console.error(status + ":" + e);
+// 		}
+// 	});
+
+
+$(function(){
+	
+		//////////////////////////////////////////////추가
+		$('#add-form').submit(function(event){
+		event.preventDefault();
+ 		var vo ={};
+ 		vo.id =${id};
+ 		vo.name  = $('#name').val();
+ 		vo.description = $('#description').val();
+ 		
+ 		//console.log(vo);
+ 		$.ajax({
+			url: '${pageContext.request.contextPath }/api/blog/add',
+			async: true,
+ 			type: 'post',
+ 			dataType: 'json',
+ 			contentType: 'application/json',
+ 			data: JSON.stringify(vo), //vo를 string으로 바꿔준다.
+ 			success: function(response){
+ 				
+ 				if(response.result !="success"){
+ 					console.error(response.message);
+ 					return;
+ 				}
+				
+				var indexNumber = $('.admin-cat tr').last().index() + 1;
+				response.data.indexNumber = indexNumber;
+
+				var html = listItemTemplate.render(response.data);
+				
+				$("#menu-title").after(html);
+
+ 			},
+ 			error: function(xhr, status, e){
+ 				console.error(status + ":" + e);
+ 			}
+ 		});
+ 	});
+	
+
+		/////////////////////////////////////삭제
+		
+		
+	
+		$(document).on('click','.admin-cat tr td a ', function(event){
+			event.preventDefault();
+			
+			var vo = {};
+			var no = $(this).data('no');
+			
+			console.log("asd" + no);
+			
+			$.ajax({
+				url: '${pageContext.request.contextPath }/api/blog/delete/'+ no,
+				async: true,
+				type: 'delete',
+				dataType: 'json',
+				
+				data: '',
+				success: function(response){
+					
+					if(response.result != "success"){
+						console.error(response.message);
+						return;
+					}
+					
+					$(".admin-cat tr[data-no=" + no + "]").remove();
+				
+				
+					
+		            return;
+					
+				},
+				error: function(xhr, status, e){
+					console.error(status + ":" + e);
+				}
+			});
+		});
+		
+		fetchList();
+	});
+	
 </script>
 
 
@@ -52,7 +150,7 @@ var fetchList = function(response){
 		<div id="header">
 			<h1>Spring 이야기</h1>
 			<ul>
-				<li><a href="">로그아웃</a></li>
+				<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
 				<li><a href="${pageContext.request.contextPath}/blog/${authUser.id}/admin">블로그 관리</a></li>
 			</ul>
 		</div>
@@ -73,42 +171,26 @@ var fetchList = function(response){
                 		  <th>설명</th>
                			   <th>삭제</th>
               		</tr>
-               <!-- 
-				<c:set var="count" value="${fn:length(list) }"/>
-				<c:forEach items="${list }" var="vo" varStatus="status">
-					<tr>
-						<td>[${count - status.index }]</td>
-						<td>${vo.name }</td>
-						<td>${vo.postCnt }</td>
-						<td>${vo.description }</td>
-						<td>
-						<c:choose>
-						<c:when test="${vo.postCnt eq 0 }">
-						<a href = "${pageContext.request.contextPath }/${authUser.id}/delete/${vo.no}"><img src="${pageContext.request.contextPath}/assets/image/delete.jpg"></a>
-						</c:when>
-						</c:choose>
-						</td>
-					</tr>	
-						</c:forEach>
-						 -->
-				
+              		
+              		
+              		
 				</table>
 			
       	
-      		<form action="${pageContext.request.contextPath}/blog/${authUser.id}/category" method="post" enctype="multipart/form-data">
+      		<form id="add-form" method="post" enctype="multipart/form-data">
       			<h4 class="n-c">새로운 카테고리 추가</h4>
 		      	<table id="admin-cat-add">
 		      		<tr>
 		      			<td class="t">카테고리명</td>
-		      			<td><input type="text" name="name"></td>
+		      			<td><input type="text" name="name" id = "name"></td>
 		      		</tr>
 		      		<tr>
 		      			<td class="t">설명</td>
-		      			<td><input type="text" name="description"></td>
+		      			<td><input type="text" name="description" id = "description"></td>
 		      		</tr>
 		      		<tr>
 		      			<td class="s">&nbsp;</td>
-		      			<td><input type="submit" value="카테고리 추가"></td>
+		      			<td><input id = 'addForm' type="submit" value="카테고리 추가"></td>
 		      		</tr>      		      		
 		      	</table> 
 		      	</form>

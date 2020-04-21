@@ -1,4 +1,15 @@
- <tr>
+ <tr data-no='<%=no%>'>
+ 	  <td><%=indexNumber%></td>
       <td><%=name%></td>
+      <td><%=postNo%></td>
       <td><%=description%></td>
-   </tr>
+      <td>
+    	 <%
+      		if(postCnt==0){
+     	 %>
+         <a href='' data-no='<%=no%>' ><img src=<%=data.contextPath%>'/jblog03/assets/image/delete.jpg'></a>
+   		 <%
+        	 }
+    	  %>
+      </td>
+  </tr>

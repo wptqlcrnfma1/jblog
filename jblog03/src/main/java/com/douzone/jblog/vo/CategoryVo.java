@@ -8,7 +8,7 @@ public class CategoryVo {
 	private String regDate;
 	private String id;
 	private int postCnt;
-	private int postNo;
+	private int postNo;             
 	
 	public int getPostNo() {
 		return postNo;

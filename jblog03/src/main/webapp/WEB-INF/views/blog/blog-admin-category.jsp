@@ -33,7 +33,7 @@ var fetchList = function(response){
 			//rendering
 			var html = listTemplate.render(response);
 			$("#menu-title").after(html);
-			//response.data.contextPath = '${pageContext.request.contextPath }';
+			
 		},
 		
 		error: function(XHR, status, e){
@@ -42,34 +42,16 @@ var fetchList = function(response){
 	});
 }
 
-	
-	
-// 	$.ajax({
-// 		url: '${pageContext.request.contextPath }/api/blog/delete/' + no,
-// 		type: 'delete',
-// 		dataType: 'json',
-// 		data: '',
-// 		success: function(response){
-// 			console.log(response);
-// 			console.log(no);
-// 		},
-// 		error: function(xhr, status, e){
-// 			console.error(status + ":" + e);
-// 		}
-// 	});
-
-
 $(function(){
-	
 		//////////////////////////////////////////////추가
 		$('#add-form').submit(function(event){
+			
 		event.preventDefault();
  		var vo ={};
  		vo.id =${id};
  		vo.name  = $('#name').val();
  		vo.description = $('#description').val();
  		
- 		//console.log(vo);
  		$.ajax({
 			url: '${pageContext.request.contextPath }/api/blog/add',
 			async: true,
@@ -86,7 +68,8 @@ $(function(){
 				
 				var indexNumber = $('.admin-cat tr').last().index() + 1;
 				response.data.indexNumber = indexNumber;
-
+				response.data.contextPath = "${pageContext.request.contextPath }";
+		
 				var html = listItemTemplate.render(response.data);
 				
 				$("#menu-title").after(html);
@@ -97,11 +80,6 @@ $(function(){
  			}
  		});
  	});
-	
-
-		/////////////////////////////////////삭제
-		
-		
 	
 		$(document).on('click','.admin-cat tr td a ', function(event){
 			event.preventDefault();
@@ -125,9 +103,10 @@ $(function(){
 						return;
 					}
 					
+					var indexNumber = $('.admin-cat tr').last().index() + 1;
+					response.data.indexNumber = indexNumber;
+					
 					$(".admin-cat tr[data-no=" + no + "]").remove();
-				
-				
 					
 		            return;
 					

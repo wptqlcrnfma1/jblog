@@ -27,6 +27,7 @@ public class CategoryRepository {
 		return list;
 	}
 	
+	
 	public List<CategoryVo> selectTitleList(String id) { //블로그 메인 화면
 		List<CategoryVo> list = sqlSession.selectList("category.selectTitle", id);
 		return list;

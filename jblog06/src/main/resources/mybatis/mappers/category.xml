@@ -18,6 +18,9 @@
  			into category
   			values(null, #{name}, #{description}, now() , #{id})
 		]]>
+		<selectKey keyProperty="no" resultType="int" order="AFTER">
+			select last_insert_id()
+		</selectKey>
 	</insert>
 	
 	<select id="selectAll" resultType="categoryVo">
@@ -31,7 +34,7 @@
 					order by a.no desc;
 		]]>
 	</select>
-	
+
 	<select id="selectTitle" resultType="categoryVo">
 		<![CDATA[
 		select no, name
@@ -41,9 +44,9 @@
 		]]>
 	</select>
 	
-	<delete id="delete" parameterType="categoryVo">
+	<delete id="delete" parameterType="integer">
 		<![CDATA[
-			delete from category where no = #{no}
+			delete from category where no = #{no};
 		]]>
 	</delete>
 	

@@ -1,0 +1,16 @@
+
+ <tr data-no='<%=no%>'>
+ 	  <td><%=indexNumber%></td>
+      <td><%=name%></td>
+      <td><%=postCnt%></td>
+      <td><%=description%></td>
+      <td>
+    	 <%
+      		if(postCnt<1){
+     	 %>
+         	<a href='' data-no='<%=no%>' ><img src=<%=contextPath%>/assets/image/delete.jpg></a>
+   		 <%
+        	 }
+    	  %>
+      </td>
+  </tr>

@@ -8,24 +8,25 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>JBlog</title>
 <Link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jblog.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery/jquery-3.4.1.js"></script>
 </head>
 <body>
 	<div id="container">
 		<div id="header">
 			<h1>${blogVo.title }</h1>
 			<ul>
-				<li><a href="">로그아웃</a></li>
-				<li><a href="">블로그 관리</a></li>
+				<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
+				<li><a href="${pageContext.request.contextPath}/blog/${authUser.id}/admin">블로그 관리</a></li>
 			</ul>
 		</div>
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 				<ul class="admin-menu">
 					<li class="selected">기본설정</li>
-					<li><a href="${pageContext.request.contextPath}/${authUser.id}/category">카테고리</a></li>
-					<li><a href="${pageContext.request.contextPath}/${authUser.id}/write">글작성</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/${authUser.id}/category">카테고리</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/${authUser.id}/write">글작성</a></li>
 				</ul>
-				<form action="${pageContext.request.contextPath}/${authUser.id }/admin/update" method="post" enctype="multipart/form-data">
+				<form action="${pageContext.request.contextPath}/blog/${authUser.id }/admin/update" method="post" enctype="multipart/form-data">
 	 		      	<table class="admin-config">
 			      		<tr>
 			      			<td class="t">블로그 제목</td>
@@ -33,7 +34,7 @@
 			      		</tr>
 			      		<tr>
 			      			<td class="t">로고이미지</td>
-			      			<td><img id="profile" src="${pageContext.request.contextPath}/assets/${blogVo.logo }"></td>  
+			      			<td><img src="${pageContext.request.contextPath}/assets/${blogVo.logo }"></td>  
 			      		</tr>     			      		 		
 			      		<tr>
 			      			<td class="t">&nbsp;</td>

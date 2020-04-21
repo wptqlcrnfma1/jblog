@@ -20,7 +20,7 @@
 				</c:when>
 				<c:otherwise>
 					<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
-					<li><a href="${pageContext.request.contextPath}/${authUser.id}/admin">블로그 관리</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/${authUser.id}/admin">블로그 관리</a></li>
 				</c:otherwise>
 				</c:choose>
 			</ul>
@@ -36,7 +36,7 @@
 					
 				<ul class="blog-list">
 				<c:forEach items="${postList }" var="vo" varStatus="status">
-					<li><a href="${pageContext.request.contextPath}/${authUser.id}/${vo.categoryNo}/${vo.no}">${vo.title}</a> <span>${vo.regDate}</span></li>
+					<li><a href="${pageContext.request.contextPath}/blog/${authUser.id}/${vo.categoryNo}/${vo.no}">${vo.title}</a> <span>${vo.regDate}</span></li>
 				</c:forEach>
 				</ul>
 			</div>
@@ -51,7 +51,7 @@
 		<div id="navigation">
 		<h2>카테고리</h2>
 				<c:forEach items="${categoryList}" var="vo" varStatus="status">
-					<li><a href="${pageContext.request.contextPath}/${authUser.id}/${vo.no}">${vo.name }</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/${authUser.id}/${vo.no}">${vo.name }</a></li>
 				</c:forEach>
 		</div>
 		<div id="footer">

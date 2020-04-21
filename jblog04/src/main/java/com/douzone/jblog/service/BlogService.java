@@ -34,6 +34,7 @@ public class BlogService {
 
 	public BlogVo getContents(String id) {
 		BlogVo blogVo = blogRepository.findById(id);
+
 		return blogVo;
 	}
 
@@ -150,5 +151,9 @@ public class BlogService {
 
 		return map;
 
+	}
+
+	public List<CategoryVo> getMessageList(String id) {
+		return categoryRepository.selectList(id);
 	}
 }

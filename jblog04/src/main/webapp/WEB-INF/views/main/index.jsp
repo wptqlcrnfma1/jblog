@@ -20,7 +20,7 @@
 			</c:choose>	
 					<li><a href="${pageContext.request.contextPath}/user/join">회원가입</a></li>
 			<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
-			<li><a href="${pageContext.request.contextPath}/${authUser.id }">내블로그</a></li>
+			<li><a href="${pageContext.request.contextPath}/blog/${authUser.id }">내블로그</a></li>
 		</ul>
 		<form class="search-form">
 			<fieldset>

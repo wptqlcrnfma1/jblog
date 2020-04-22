@@ -127,7 +127,7 @@ $(function(){
 <body>
 	<div id="container">
 		<div id="header">
-			<h1>Spring 이야기</h1>
+			<h1>${blogVo.title }</h1>
 			<ul>
 				<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
 				<li><a href="${pageContext.request.contextPath}/blog/${authUser.id}/admin">블로그 관리</a></li>

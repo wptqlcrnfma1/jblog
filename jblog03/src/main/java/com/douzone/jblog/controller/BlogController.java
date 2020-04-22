@@ -78,14 +78,16 @@ public class BlogController {
 
 	@Auth
 	@RequestMapping("/category")
-	public String category(@PathVariable String id, Model model) {
+	public String category(@PathVariable String id, @ModelAttribute BlogVo blogVo,Model model) {
 		
 		List<CategoryVo> list = blogService.categoryGetContents(id);
 		
 		model.addAttribute("id", id);
-		
 		model.addAttribute("list", list);
-
+		
+		blogVo = blogService.getContents(id);
+		model.addAttribute("blogVo", blogVo);
+		
 		return "blog/blog-admin-category";
 	}
 
@@ -101,9 +103,11 @@ public class BlogController {
 
 	@Auth
 	@RequestMapping("/write")
-	public String write(@PathVariable String id, Model model) {
+	public String write(@PathVariable String id, Model model,@ModelAttribute BlogVo blogVo) {
 		List<CategoryVo> list = blogService.categoryGetContents(id);
-
+		blogVo = blogService.getContents(id);
+		model.addAttribute("blogVo", blogVo);
+		
 		model.addAttribute("list", list);
 		return "blog/blog-admin-write";
 	}

@@ -12,6 +12,7 @@
 </head>
 <body>
 	<div id="container">
+	
 		<div id="header">
 			<h1>${blogVo.title }</h1>
 			<ul>
@@ -19,6 +20,7 @@
 				<li><a href="${pageContext.request.contextPath}/blog/${authUser.id}/admin">블로그 관리</a></li>
 			</ul>
 		</div>
+		
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 				<ul class="admin-menu">
@@ -54,5 +56,6 @@
 			</p>
 		</div>
 	</div>
+</div>
 </body>
 </html>

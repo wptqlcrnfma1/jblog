@@ -125,6 +125,7 @@ $(function(){
 
 </head>
 <body>
+
 	<div id="container">
 		<div id="header">
 			<h1>${blogVo.title }</h1>
@@ -133,6 +134,7 @@ $(function(){
 				<li><a href="${pageContext.request.contextPath}/blog/${authUser.id}/admin">블로그 관리</a></li>
 			</ul>
 		</div>
+		
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 				<ul class="admin-menu">
@@ -149,10 +151,7 @@ $(function(){
                  		 <th>포스트 수</th>
                 		  <th>설명</th>
                			   <th>삭제</th>
-              		</tr>
-              		
-              		
-              		
+              		</tr>	
 				</table>
 			
       	
@@ -172,14 +171,16 @@ $(function(){
 		      			<td><input id = 'addForm' type="submit" value="카테고리 추가"></td>
 		      		</tr>      		      		
 		      	</table> 
-		      	</form>
-			</div>
+		      </form>
+			
 		</div>
+		
 		<div id="footer">
 			<p>
 				<strong>Spring 이야기</strong> is powered by JBlog (c)2016
 			</p>
 		</div>
+	</div>
 	</div>
 </body>
 </html>
